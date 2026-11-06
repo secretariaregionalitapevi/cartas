@@ -1,0 +1,9 @@
+const {norm,administration}=require('./domain');
+function legacyPayload(p,event,ministry){
+ const date=new Date(event.data+'T12:00:00Z');const city=norm(p.municipio);const municipality=administration(p.municipio)==='COTIA'?'COTIA':city.includes('PIRAPORA')?'PIRAPORA':city.includes('SANTANA')?'SANTANA':city;
+ const levels={rjm:'Reunião de Jovens',culto:'Culto Oficial',oficializacao:'Oficialização',pre_rjm:'Pré Reunião de Jovens',pre_culto:'Pré Culto Oficial',pre_oficializacao:'Pré Oficialização'};
+ const common={municipio:municipality,cidade:p.municipio,dia:String(date.getUTCDate()),mes:date.toLocaleDateString('pt-BR',{month:'long',timeZone:'UTC'}),codigo_aluna:p.comum,comum_aluno:p.comum,comum_aluna:p.comum,whatsapp:p.whatsapp,secretario:ministry.secretario?.nome||'',anciao:ministry.anciao?.nome||'',cooperador:ministry.cooperador?.nome||'',encarregado:ministry.encarregado?.nome||'',regional:ministry.regional?.nome||''};
+ if(p.tipo==='musico')return {flow:'musicos',body:{...common,aluno:p.nome,instrumento:p.instrumento,exame:p.modalidade.startsWith('troca_')?'TROCA INSTRUMENTO':p.modalidade==='culto'?'CULTO OFICIAL':'OFICIALIZAÇÃO',motivo_troca:p.modalidade==='troca_necessidade'?'NECESSIDADE':p.modalidade==='troca_enfermidade'?'ENFERMIDADE':'',novo_instrumento:[p.novo_instrumento,p.nova_tonalidade].filter(Boolean).join(' - '),nova_tonalidade:p.nova_tonalidade||'',data_oficializacao:p.data_oficializacao||''}};
+ return {flow:'organistas',body:{...common,aluna:p.nome,instrutora:p.instrutora,codigo_instrutora:p.comum_instrutora,comum_instrutora:p.comum_instrutora,exame:p.modalidade.startsWith('pre_')?'PRÉ-AVALIAÇÃO':p.modalidade==='por_chance'?'TESTE POR CHANCE':'EXAME OFICIAL',codigo_nivel_pre:levels[p.modalidade]||'',codigo_nivel:levels[p.modalidade]||'',cultos:p.cultos,qtd_culto:p.qtd_culto,qtd_rjm:p.qtd_rjm,limite:p.limite,metodos:p.metodos||''}};
+}
+module.exports={legacyPayload};

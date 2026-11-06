@@ -1,0 +1,441 @@
+{
+  "levels": {
+    "rjm": {
+      "label": "Reunião de Jovens e Menores",
+      "msa_phase": 12,
+      "hymns": [
+        431,
+        480
+      ]
+    },
+    "culto": {
+      "label": "Cultos Oficiais",
+      "msa_phase": 16,
+      "hymns": [
+        1,
+        480
+      ]
+    },
+    "oficializacao": {
+      "label": "Oficialização",
+      "msa_phase": 16,
+      "hymns": [
+        1,
+        480
+      ],
+      "revision": true
+    }
+  },
+  "methods": {
+    "VIOLINO": {
+      "rjm": "N. Laoureux vol. 1 até pág. 35; ou Schimoll até pág. 46 (lição 113) + H. Sitt vol. 1 até lição 6; ou Método Facilitado Britten até pág. 40.",
+      "culto": "N. Laoureux vol. 1 completo + vol. 3 até pág. 15; ou Schimoll até pág. 67 (lição 162) + H. Sitt vol. 1 até lição 14; ou Método Facilitado Britten até pág. 55.",
+      "oficializacao": "N. Laoureux vol. 1 completo + vol. 3 págs. 24 e 44 a 53; ou Schimoll completo + H. Sitt Op. 32 vol. 1 completo; ou Método Facilitado Britten completo."
+    },
+    "VIOLA": {
+      "rjm": "Beginning Strings até lição VI + Berta Volmer vol. 1 até pág. 31; ou Método Facilitado Britten até pág. 40.",
+      "culto": "Berta Volmer vol. 1 até pág. 62 + A Tune a Day vol. 3 até pág. 16; ou Método Facilitado Britten até pág. 55.",
+      "oficializacao": "Berta Volmer vol. 1 completo + A Tune a Day vol. 3 completo; ou Método Facilitado Britten completo."
+    },
+    "VIOLONCELO": {
+      "rjm": "Beginning Strings até lição VI + Dotzauer vol. 1 até pág. 34 (lição 80); ou Método Facilitado Britten até pág. 40.",
+      "culto": "Dotzauer vol. 1 completo + vol. 2 até pág. 3 (lição 111); ou Método Facilitado Britten até pág. 52.",
+      "oficializacao": "Dotzauer vol. 1 completo + vol. 2 até pág. 19 (lição 154); ou Método Facilitado Britten completo."
+    },
+    "FLAUTA": {
+      "rjm": "Rubank Elementary completo; ou Parès até lição 41; ou Galli até pág. 41; ou Método Prático Almeida Dias até fase 13.",
+      "culto": "Rubank Intermediate até pág. 29; ou Parès até lição 62; ou Galli completo; ou Método Prático Almeida Dias até fase 25.",
+      "oficializacao": "Rubank Intermediate completo; ou Parès até lição 62; ou Galli completo; ou Método Prático Almeida Dias até fase 25."
+    },
+    "CLARINETE": {
+      "rjm": "Giampieri até pág. 28; ou Domingos Pecci até pág. 29; ou Galper book 1 até exercício 110.",
+      "culto": "Giampieri até pág. 41; ou Domingos Pecci até pág. 36.",
+      "oficializacao": "Giampieri até pág. 63; ou Domingos Pecci completo; ou Galper book 1 completo + book 2 até pág. 29."
+    },
+    "SAXOFONE": {
+      "rjm": "Giampieri até pág. 21; ou Amadeu Russo até pág. 25; ou Método Prático Almeida Dias até fase 13.",
+      "culto": "Giampieri até pág. 30; ou Amadeu Russo até pág. 40; ou Método Prático Almeida Dias até fase 25.",
+      "oficializacao": "Giampieri até pág. 50; ou Amadeu Russo até pág. 55; ou Método Prático Almeida Dias completo."
+    },
+    "TROMPETE": {
+      "rjm": "Rubank Elementary para Cornet/Trumpet completo.",
+      "culto": "Robert Getchel Second Book exercícios 65 a 94; ou Amadeu Russo até pág. 30; ou Método Prático Almeida Dias até fase 25.",
+      "oficializacao": "Robert Getchel Second Book completo; ou Amadeu Russo até pág. 41; ou Método Prático Almeida Dias completo."
+    },
+    "TROMPA": {
+      "rjm": "Rubank Elementary completo + Método Prático para Trompa até lição 73.",
+      "culto": "Rubank Elementary e Intermediate completos + Método Prático para Trompa até lição 105.",
+      "oficializacao": "Rubank Elementary e Intermediate completos + Método Prático para Trompa completo."
+    },
+    "TROMBONE": {
+      "rjm": "Rubank Elementary até pág. 24; ou Método Prático Almeida Dias até fase 13.",
+      "culto": "Rubank Elementary até pág. 37; ou Método Prático Almeida Dias até fase 25.",
+      "oficializacao": "Rubank Elementary até pág. 48; ou Método Prático Almeida Dias completo."
+    },
+    "EUFONIO": {
+      "rjm": "Rubank Elementary até pág. 24; ou Método Prático Almeida Dias até fase 13.",
+      "culto": "Rubank Elementary até pág. 37; ou Método Prático Almeida Dias até fase 25.",
+      "oficializacao": "Rubank Elementary até pág. 48; ou Método Prático Almeida Dias completo."
+    },
+    "TUBA": {
+      "rjm": "Rubank Elementary até pág. 24; ou Método Prático Almeida Dias até fase 13.",
+      "culto": "Rubank Elementary até pág. 37; ou Método Prático Almeida Dias até fase 25.",
+      "oficializacao": "Rubank Elementary até pág. 48; ou Método Prático Almeida Dias completo."
+    }
+  },
+  "rules": {
+    "VIOLINO": {
+      "rjm": [
+        [
+          "LAOUREUX",
+          "pagina",
+          35
+        ],
+        [
+          "SCHIMOLL",
+          "pagina",
+          46
+        ],
+        [
+          "BRITTEN",
+          "pagina",
+          40
+        ]
+      ],
+      "culto": [
+        [
+          "SCHIMOLL",
+          "pagina",
+          67
+        ],
+        [
+          "BRITTEN",
+          "pagina",
+          55
+        ]
+      ]
+    },
+    "VIOLA": {
+      "rjm": [
+        [
+          "VOLMER",
+          "pagina",
+          31
+        ],
+        [
+          "BRITTEN",
+          "pagina",
+          40
+        ]
+      ],
+      "culto": [
+        [
+          "VOLMER",
+          "pagina",
+          62
+        ],
+        [
+          "BRITTEN",
+          "pagina",
+          55
+        ]
+      ]
+    },
+    "VIOLONCELO": {
+      "rjm": [
+        [
+          "DOTZAUER",
+          "pagina",
+          34
+        ],
+        [
+          "BRITTEN",
+          "pagina",
+          40
+        ]
+      ],
+      "culto": [
+        [
+          "DOTZAUER",
+          "licao",
+          111
+        ],
+        [
+          "BRITTEN",
+          "pagina",
+          52
+        ]
+      ],
+      "oficializacao": [
+        [
+          "DOTZAUER",
+          "licao",
+          154
+        ]
+      ]
+    },
+    "FLAUTA": {
+      "rjm": [
+        [
+          "PARES",
+          "licao",
+          41
+        ],
+        [
+          "GALLI",
+          "pagina",
+          41
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          13
+        ]
+      ],
+      "culto": [
+        [
+          "RUBANK",
+          "pagina",
+          29
+        ],
+        [
+          "PARES",
+          "licao",
+          62
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          25
+        ]
+      ]
+    },
+    "CLARINETE": {
+      "rjm": [
+        [
+          "GIAMPIERI",
+          "pagina",
+          28
+        ],
+        [
+          "PECCI",
+          "pagina",
+          29
+        ],
+        [
+          "GALPER",
+          "licao",
+          110
+        ]
+      ],
+      "culto": [
+        [
+          "GIAMPIERI",
+          "pagina",
+          41
+        ],
+        [
+          "PECCI",
+          "pagina",
+          36
+        ]
+      ],
+      "oficializacao": [
+        [
+          "GIAMPIERI",
+          "pagina",
+          63
+        ]
+      ]
+    },
+    "SAXOFONE": {
+      "rjm": [
+        [
+          "GIAMPIERI",
+          "pagina",
+          21
+        ],
+        [
+          "RUSSO",
+          "pagina",
+          25
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          13
+        ]
+      ],
+      "culto": [
+        [
+          "GIAMPIERI",
+          "pagina",
+          30
+        ],
+        [
+          "RUSSO",
+          "pagina",
+          40
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          25
+        ]
+      ],
+      "oficializacao": [
+        [
+          "GIAMPIERI",
+          "pagina",
+          50
+        ],
+        [
+          "RUSSO",
+          "pagina",
+          55
+        ]
+      ]
+    },
+    "TROMPETE": {
+      "culto": [
+        [
+          "GETCHEL",
+          "licao",
+          94
+        ],
+        [
+          "RUSSO",
+          "pagina",
+          30
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          25
+        ]
+      ],
+      "oficializacao": [
+        [
+          "RUSSO",
+          "pagina",
+          41
+        ]
+      ]
+    },
+    "TROMPA": {
+      "rjm": [
+        [
+          "TROMPA",
+          "licao",
+          73
+        ]
+      ],
+      "culto": [
+        [
+          "TROMPA",
+          "licao",
+          105
+        ]
+      ]
+    },
+    "TROMBONE": {
+      "rjm": [
+        [
+          "RUBANK",
+          "pagina",
+          24
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          13
+        ]
+      ],
+      "culto": [
+        [
+          "RUBANK",
+          "pagina",
+          37
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          25
+        ]
+      ],
+      "oficializacao": [
+        [
+          "RUBANK",
+          "pagina",
+          48
+        ]
+      ]
+    },
+    "EUFONIO": {
+      "rjm": [
+        [
+          "RUBANK",
+          "pagina",
+          24
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          13
+        ]
+      ],
+      "culto": [
+        [
+          "RUBANK",
+          "pagina",
+          37
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          25
+        ]
+      ],
+      "oficializacao": [
+        [
+          "RUBANK",
+          "pagina",
+          48
+        ]
+      ]
+    },
+    "TUBA": {
+      "rjm": [
+        [
+          "RUBANK",
+          "pagina",
+          24
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          13
+        ]
+      ],
+      "culto": [
+        [
+          "RUBANK",
+          "pagina",
+          37
+        ],
+        [
+          "ALMEIDA DIAS",
+          "licao",
+          25
+        ]
+      ],
+      "oficializacao": [
+        [
+          "RUBANK",
+          "pagina",
+          48
+        ]
+      ]
+    }
+  }
+}

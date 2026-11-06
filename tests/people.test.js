@@ -1,0 +1,13 @@
+const {test}=require('node:test'),assert=require('node:assert/strict');
+const {searchPeople}=require('../src/people');const {legacyPayload}=require('../src/legacy-payload');
+const common='BR-22-2999 - VILA DAS CHÁCARAS';
+const rows=[{id:'1',nome_aluno:'ALCIDES COELHO DE SOUZA',comum_congregacao:common,instrumento:'Trompete',cargo_ministerio:'MÚSICO',status:'Concluido',nivel:'CULTO OFICIAL'},{id:'2',nome_aluno:'MARIA DOS SANTOS',comum_congregacao:common,instrumento:'ÓRGÃO',cargo_ministerio:'ORGANISTA',status:'Ativo',nivel:'RJM'},{id:'3',nome_aluno:'ALCIDES COELHO',comum_congregacao:'BR-22-0001',instrumento:'Flauta',cargo_ministerio:'MÚSICO',status:'Ativo',nivel:'RJM'}];
+test('busca nomes sem exigir nomes intermediários e respeita comum e tipo',()=>{assert.deepEqual(searchPeople(rows,{common,type:'musico',query:'alcides souza'}).map(r=>r.id),['1']);assert.deepEqual(searchPeople(rows,{common,type:'organista',query:'santos'}).map(r=>r.id),['2']);assert.equal(searchPeople(rows,{common,type:'musico',query:'maria'}).length,0);});
+test('contrato n8n conserva os campos e valores distintos de músicos e organistas',()=>{const p={nome:'Pessoa de exemplo',tipo:'musico',modalidade:'oficializacao',municipio:'Caucaia do Alto',comum:common};const event={data:'2026-11-28'};const musician=legacyPayload(p,event,{});assert.equal(musician.flow,'musicos');assert.equal(musician.body.aluno,p.nome);assert.equal(musician.body.exame,'OFICIALIZAÇÃO');assert.equal(musician.body.municipio,'COTIA');const organist=legacyPayload({...p,tipo:'organista',modalidade:'culto'},event,{});assert.equal(organist.flow,'organistas');assert.equal(organist.body.aluna,p.nome);assert.equal(organist.body.exame,'EXAME OFICIAL');assert.equal(organist.body.codigo_nivel_pre,'Culto Oficial');assert.equal(organist.body.aluno,undefined);});
+
+test('somente culto oficial e níveis inferiores aparecem para músicos e organistas',()=>{
+ const {eligibleLevel}=require('../src/people');
+ for(const nivel of ['CANDIDATO(A)','RJM','MEIA HORA','ENSAIO','CULTO OFICIAL','RJM / CULTO OFICIAL'])assert.equal(eligibleLevel({nivel}),true,nivel);
+ for(const nivel of ['OFICIALIZADO(A)','Oficializada','RJM / OFICIALIZADO(A)','',null])assert.equal(eligibleLevel({nivel}),false,String(nivel));
+ for(const type of ['musico','organista']){const base={...rows[type==='musico'?0:1]};const candidates=[{...base,id:'current',nivel:'CULTO OFICIAL'},{...base,id:'graduated',nivel:'OFICIALIZADO(A)'},{...base,id:'mixed',nivel:'RJM / OFICIALIZADO(A)'}];assert.deepEqual(searchPeople(candidates,{common,type,query:''}).map(r=>r.id),['current']);}
+});

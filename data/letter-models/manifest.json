@@ -1,0 +1,324 @@
+{
+  "CARTA_MUSICO_CO_IA": {
+    "pages": 1,
+    "fields": [
+      {
+        "token": "[ALUNO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 145.3907928466797,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_ALUNO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 176.94078063964844,
+        "width": 298.3999938964844,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[INSTRUMENTO]",
+        "page": 0,
+        "x": 337.8999938964844,
+        "y": 176.94078063964844,
+        "width": 222.40396118164062,
+        "size": 12.0,
+        "bold": true
+      }
+    ],
+    "source_sha256": "1290b5c929b4335a08e7e4b622829a0f87e97eacc42b35c0c27f299d7c8afab7",
+    "layout_revision": 2,
+    "salutation_y": 65.98677062988281,
+    "ministry_y": 408,
+    "greeting_date_y": 66.88249062988281
+  },
+  "CARTA_MUSICO_OF_IA": {
+    "pages": 1,
+    "fields": [
+      {
+        "token": "[ALUNO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 145.3907928466797,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_ALUNO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 176.94078063964844,
+        "width": 298.3999938964844,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[INSTRUMENTO]",
+        "page": 0,
+        "x": 337.8999938964844,
+        "y": 176.94078063964844,
+        "width": 222.40396118164062,
+        "size": 12.0,
+        "bold": true
+      }
+    ],
+    "source_sha256": "94c6618ce46077849d096b74174091d67c6b1bd0e0b8bdc53d919066dbdb190f",
+    "layout_revision": 2,
+    "salutation_y": 65.98677062988281,
+    "ministry_y": 408,
+    "greeting_date_y": 66.88249062988281
+  },
+  "CARTA_MUSICO_TROCA_IA_ENF": {
+    "pages": 1,
+    "fields": [
+      {
+        "token": "[DATA_OFICIALIZACAO]",
+        "page": 0,
+        "x": 464.8500061035156,
+        "y": 120.84074401855469,
+        "width": 95.45394897460938,
+        "size": 12,
+        "bold": true
+      },
+      {
+        "token": "[ALUNO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 119.69078063964844,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_ALUNO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 167.3407440185547,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[INSTRUMENTO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 220.2407684326172,
+        "width": 266.6000061035156,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[NOVO_INSTRUMENTO]",
+        "page": 0,
+        "x": 306.1000061035156,
+        "y": 219.0907440185547,
+        "width": 254.20394897460938,
+        "size": 12.0,
+        "bold": true
+      }
+    ],
+    "source_sha256": "748c3d6ad7f762c9f500635b83cf04340b340cd988305e4a99f0fd8f9fe35f08",
+    "layout_revision": 2,
+    "salutation_y": 66.60074615478516,
+    "ministry_y": 384,
+    "greeting_date_y": 67.49646615478515
+  },
+  "CARTA_MUSICO_TROCA_IA_NEC": {
+    "pages": 1,
+    "fields": [
+      {
+        "token": "[DATA_OFICIALIZACAO]",
+        "page": 0,
+        "x": 464.8500061035156,
+        "y": 120.84074401855469,
+        "width": 95.45394897460938,
+        "size": 12,
+        "bold": true
+      },
+      {
+        "token": "[ALUNO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 119.69078063964844,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_ALUNO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 167.3407440185547,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[INSTRUMENTO]",
+        "page": 0,
+        "x": 31.5,
+        "y": 220.2407684326172,
+        "width": 266.6000061035156,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[NOVO_INSTRUMENTO]",
+        "page": 0,
+        "x": 306.1000061035156,
+        "y": 219.0907440185547,
+        "width": 254.20394897460938,
+        "size": 12.0,
+        "bold": true
+      }
+    ],
+    "source_sha256": "8ebe37421da4573e030fe89684de22231e0e7a1c2cc3a474e96e7612f31e175a",
+    "layout_revision": 2,
+    "salutation_y": 66.60074615478516,
+    "ministry_y": 384,
+    "greeting_date_y": 67.49646615478515
+  },
+  "CARTA_ORGANISTAS_CO_IA": {
+    "pages": 1,
+    "fields": [
+      {
+        "token": "[ALUNA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 143.8407440185547,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_ALUNA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 176.54075622558594,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_INSTRUTORA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 294.99078369140625,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[INSTRUTORA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 262.290771484375,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      }
+    ],
+    "source_sha256": "91a7d72fb8b24160a5e123597a8a7d604dbce8efefabfda6d6a2f53c31123453",
+    "layout_revision": 2,
+    "salutation_y": 65.98677062988281,
+    "ministry_y": 445,
+    "greeting_date_y": 66.88249062988281
+  },
+  "CARTA_ORGANISTAS_OF_IA": {
+    "pages": 1,
+    "fields": [
+      {
+        "token": "[ALUNA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 147.8407440185547,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_ALUNA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 180.54075622558594,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_INSTRUTORA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 298.99078369140625,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[INSTRUTORA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 266.290771484375,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      }
+    ],
+    "source_sha256": "476b6601ad9be5a77ea5efc362c2a6c6d41d5d369bdb81091b1a32db57720f07",
+    "layout_revision": 2,
+    "salutation_y": 69.98677062988281,
+    "ministry_y": 445,
+    "greeting_date_y": 70.88249062988281
+  },
+  "CARTA_ORGANISTAS_RJM_IA": {
+    "pages": 1,
+    "fields": [
+      {
+        "token": "[ALUNA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 142.69078063964844,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_ALUNA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 175.2407684326172,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[CODIGO_INSTRUTORA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 293.6907958984375,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      },
+      {
+        "token": "[INSTRUTORA]",
+        "page": 0,
+        "x": 31.5,
+        "y": 260.99078369140625,
+        "width": 528.803955078125,
+        "size": 12.0,
+        "bold": true
+      }
+    ],
+    "source_sha256": "aa74305ad00f9127c50e4eced7b1e6fcb3e7011209f05b14d59ada9bdbca1755",
+    "layout_revision": 2,
+    "salutation_y": 65.98677062988281,
+    "ministry_y": 445,
+    "greeting_date_y": 66.88249062988281
+  }
+}
