@@ -12,11 +12,11 @@ A conexão local já está configurada no .env. Nunca publicar ou compartilhar e
 
 ## Funcionamento
 
-Município → exame futuro → comum e identificação → ministério → revisão → emissão → Minhas cartas.
+Administração → exame futuro → comum e identificação → ministério → revisão → emissão → Minhas cartas.
 
-Administrações: Cotia/Caucaia do Alto/Vargem Grande Paulista; Itapevi; Jandira; Santana de Parnaíba/Pirapora do Bom Jesus. Fazendinha pertence a Santana de Parnaíba, conforme o cadastro existente.
+São quatro administrações: Cotia / Caucaia / VGP; Itapevi; Jandira; Santana / Pirapora. Fazendinha pertence à administração Santana / Pirapora, conforme o cadastro existente.
 
-A agenda é filtrada por administração, data, músicos/organistas sem distinguir avaliação de pré-avaliação para escolher o modelo. O evento é revalidado na emissão. O site informado retornou 404; o aplicativo consulta a fonte CSV da mesma agenda quando o endpoint não responde. Sem fonte disponível, a emissão é bloqueada.
+A agenda oficial é carregada primeiro pela fonte CSV ao vivo usada pelo sistema regional; o endpoint JSON é apenas reserva. A agenda é filtrada por administração e data, e músicos/organistas são filtrados sem distinguir avaliação de pré-avaliação para escolher o modelo. O evento é revalidado na emissão. Sem fonte disponível, a emissão é bloqueada.
 
 Comuns: visitas_comuns. Ministério espiritual: ministerio_regional. Encarregados: musica_acompanhamento_aluno. Cooperadores de jovens não substituem cooperadores de ofício ministerial. Todos os responsáveis do item 3 devem constar na relação de assinaturas antes de emitir. Sem cooperador informado, usar o texto autorizado “Sem Cooperador do Ofício”.
 

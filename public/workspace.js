@@ -2,14 +2,15 @@
 (() => {
  const form=document.querySelector('#letter-form');
  const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const titles=['Município e exame','Identificação','Ministério responsável','Conferência'];
+ const titles=['Administração e exame','Identificação','Ministério responsável','Conferência'];
  const sections=[...form.querySelectorAll('.sheet')];
  sections.forEach((section,i)=>section.id=`letter-step-${i+1}`);
  function refresh(){
   const value=id=>document.querySelector(id)?.value||'';
   const selected=id=>document.querySelector(id)?.selectedOptions[0]?.textContent||'';
   document.querySelector('#workspace-title').textContent=value('#type')==='organista'?'Carta de organista':'Carta de músico';
-  document.querySelector('#workspace-context').innerHTML=[['Município',value('#city')],['Exame',value('#event')?selected('#event'):'Selecione o exame'],['Comum congregação',value('#common')]].map(([label,text])=>`<div><small>${escape(label)}</small><strong>${escape(text||'Selecione')}</strong></div>`).join('');
+  const administration=data?.administrations.find(item=>item.id===value('#city'))?.label||value('#city');
+  document.querySelector('#workspace-context').innerHTML=[['Administração',administration],['Exame',value('#event')?selected('#event'):'Selecione o exame'],['Comum congregação',value('#common')]].map(([label,text])=>`<div><small>${escape(label)}</small><strong>${escape(text||'Selecione')}</strong></div>`).join('');
   const person=form.elements.pessoa_id.value;
   const preview=document.querySelector('#candidate-preview');
   preview.classList.toggle('is-selected',!!person);

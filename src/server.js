@@ -2,7 +2,7 @@
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..');for(const name of ['.env.local','.env']){const file=path.join(root,name);if(fs.existsSync(file))process.loadEnvFile(file);}
 const {Store,headers}=require('./store'),{getAgenda}=require('./agenda');
-const {cities,modalities,examEvents,eligibleEvent,validate,duplicateKey,norm,commonMatches}=require('./domain');
+const {administrations,administration,modalities,examEvents,eligibleEvent,validate,duplicateKey,norm,commonMatches,findCommonInAdministration}=require('./domain');
 const {makePdf,availableModalities,letterFilename}=require('./pdf');
 const store=new Store();
 const adminHandler=require('./admin-router').createAdminHandler(store);
@@ -32,7 +32,7 @@ async function handler(req,res){
       const token=req.headers.cookie?.match(/(?:^|;\s*)cartas_session=([^;]+)/)?.[1];
       const authenticated=token?await store.user(token):null;
       const user=authenticated||{id:visitorSession(req,res,store.key),email:'Solicitante da carta',guest:true};
-      if(route==='/api/bootstrap'&&req.method==='GET')return json(res,200,{cities,modalities,available:availableModalities,commons:await store.commons(),user:user.email});
+      if(route==='/api/bootstrap'&&req.method==='GET'){const commons=await store.commons();return json(res,200,{administrations,modalities,available:availableModalities,commons:commons.map(c=>({...c,administracao:administration(c.municipio)})),user:user.email});}
       if(route==='/api/events'&&req.method==='GET'){const agenda=await getAgenda();return json(res,200,{events:examEvents(agenda.events,url.searchParams.get('municipio')),source:agenda.source});}
       if(route==='/api/people'&&req.method==='GET'){const query=(url.searchParams.get('q')||'').trim().slice(0,120);if(query.length<2)return json(res,200,{people:[]});return json(res,200,{people:await store.people(url.searchParams.get('comum'),url.searchParams.get('tipo'),query)});}
       if(route==='/api/program-assessment'&&req.method==='GET'){
@@ -66,7 +66,7 @@ async function handler(req,res){
       if(route==='/api/letters'&&req.method==='POST'){
         const raw=await body(req),p=validate(raw);if(raw.consentimento!==true)throw Object.assign(Error('Confirme a autorização para uso dos dados na carta.'),{status:400});
         if(!availableModalities[p.tipo]?.includes(p.modalidade))throw Object.assign(Error('O modelo original desta modalidade ainda não foi disponibilizado.'),{status:422});
-        const commons=await store.commons();const canonical=commons.find(c=>commonMatches(c.comum,p.comum)&&norm(c.municipio)===norm(p.municipio));if(!canonical)throw Object.assign(Error('A comum selecionada não pertence ao município informado.'),{status:400});
+        const commons=await store.commons(),canonical=findCommonInAdministration(commons,p.comum,p.municipio);if(!canonical)throw Object.assign(Error('A comum selecionada não pertence à administração informada.'),{status:400});
         p.comum=canonical.comum;p.municipio=canonical.municipio;
         const [person]=await store.people(p.comum,p.tipo,'',String(raw.pessoa_id||''));
         if(!raw.pessoa_id||!person)throw Object.assign(Error('Selecione o músico ou organista no cadastro desta comum.'),{status:400});

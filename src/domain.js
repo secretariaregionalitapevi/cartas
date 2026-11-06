@@ -2,15 +2,21 @@
 const {createHash}=require('node:crypto');
 const norm=v=>String(v??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/[^A-Z0-9]+/g,' ').trim();
 const cities=['Cotia','Caucaia do Alto','Vargem Grande Paulista','Itapevi','Jandira','Santana de Parnaíba','Pirapora do Bom Jesus'];
+const administrations=[{id:'COTIA',label:'Cotia / Caucaia / VGP'},{id:'ITAPEVI',label:'Itapevi'},{id:'JANDIRA',label:'Jandira'},{id:'SANTANA_PIRAPORA',label:'Santana / Pirapora'}];
 function administration(city){
   const n=norm(city);
-  if(['COTIA','CAUCAIA','CAUCAIA DO ALTO','VGP','VARGEM GRANDE PAULISTA'].includes(n))return 'COTIA';
-  if(['SANTANA','SANTANA DE PARNAIBA','PIRAPORA','PIRAPORA DO BOM JESUS'].includes(n))return 'SANTANA_PIRAPORA';
+  if(['COTIA','COTIA CAUCAIA VGP','CAUCAIA','CAUCAIA DO ALTO','VGP','VARGEM GRANDE PAULISTA'].includes(n))return 'COTIA';
+  if(['SANTANA','SANTANA PIRAPORA','SANTANA DE PARNAIBA','PIRAPORA','PIRAPORA DO BOM JESUS'].includes(n)||n.includes('FAZENDINHA'))return 'SANTANA_PIRAPORA';
   return ['ITAPEVI','JANDIRA'].includes(n)?n:null;
 }
 const modalities={musico:{oficializacao:'Oficialização',culto:'Culto oficial',troca_necessidade:'Troca de instrumento por necessidade',troca_enfermidade:'Troca de instrumento por enfermidade'},organista:{rjm:'RJM',culto:'Culto oficial',oficializacao:'Oficialização',por_chance:'Por chance'}};
 function commonCode(v){return String(v??'').toUpperCase().match(/BR-\d{2}-\d{4}/)?.[0]||norm(v);}
 function commonMatches(a,b){return commonCode(a)===commonCode(b);}
+function findCommonInAdministration(commons,common,municipality){
+  const selectedAdministration=administration(municipality);
+  if(!selectedAdministration)return null;
+  return commons.find(c=>commonMatches(c.comum,common)&&administration(c.municipio)===selectedAdministration)||null;
+}
 function eventId(e){return createHash('sha256').update([e.data,e.hora,e.evento,e.local||'',e.municipio||''].join('|')).digest('hex').slice(0,32);}
 function eventAdministrations(e){
   const explicit=e.municipio||e.cidade||e.administracao;
@@ -39,4 +45,4 @@ function validate(body){
   return p;
 }
 function duplicateKey(p,event){return createHash('sha256').update([norm(p.nome),commonCode(p.comum),p.tipo,p.modalidade,event.id].join('|')).digest('hex');}
-module.exports={norm,cities,administration,modalities,commonCode,commonMatches,eventId,eventAdministrations,isExam,examEvents,eligibleEvent,validate,duplicateKey};
+module.exports={norm,cities,administrations,administration,modalities,commonCode,commonMatches,findCommonInAdministration,eventId,eventAdministrations,isExam,examEvents,eligibleEvent,validate,duplicateKey};
