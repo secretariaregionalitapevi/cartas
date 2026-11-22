@@ -16,12 +16,12 @@ test('músico inativo emite PDF e registra pendência interna para três respons
  Store.prototype.upload=async()=>{};
  Store.prototype.update=async(id,body)=>{ready=body;};
  Store.prototype.api=async(route,options)=>{assert.equal(route,'/rest/v1/audit_logs');if(auditFails)throw Error('audit unavailable');audit=options.body;};
- agenda.getAgenda=async()=>({events:[event]});
+ let agendaEvents=[event];agenda.getAgenda=async()=>({events:agendaEvents,source:'teste'});
  pdf.makePdf=async()=>Buffer.from('%PDF-mock');
  const handler=require('../src/server');
  const server=http.createServer(handler);await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  t.after(async()=>{await new Promise(resolve=>server.close(resolve));for(const name of methods)Store.prototype[name]=original[name];agenda.getAgenda=originalAgenda;pdf.makePdf=originalPdf;});
- const submit=()=>fetch('http://127.0.0.1:'+server.address().port+'/api/letters',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'musico',modalidade:'culto',municipio:'Itapevi',comum:common,nome:person.nome,instrumento:person.instrumento,tonalidade:'Mib',whatsapp:'11999999999',pessoa_id:person.id,evento_id:domain.eventId(event),anciao:'anciao',cooperador:'cooperador',regional:'regional',encarregado:'encarregado',consentimento:true})});
+ const submit=(selected=event)=>fetch('http://127.0.0.1:'+server.address().port+'/api/letters',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tipo:'musico',modalidade:'culto',municipio:'Itapevi',comum:common,nome:person.nome,instrumento:person.instrumento,tonalidade:'Mib',whatsapp:'11999999999',pessoa_id:person.id,evento_id:domain.eventId(selected),anciao:'anciao',cooperador:'cooperador',regional:'regional',encarregado:'encarregado',consentimento:true})});
  const response=await submit();
  assert.equal(response.status,201,JSON.stringify(await response.clone().json()));
  assert.equal((await response.json()).activity_pending,true);
@@ -38,4 +38,12 @@ test('músico inativo emite PDF e registra pendência interna para três respons
  assert.equal(failed.status,503);
  assert.match((await failed.json()).error,/carta foi emitida/);
  assert.equal(ready.status,'ready');
+ const first={...event,data:'2099-11-01'},second={...event,data:'2099-11-02'},fourth={...event,data:'2099-12-01'};
+ agendaEvents=[fourth,event,second,first];
+ const options=await (await fetch('http://127.0.0.1:'+server.address().port+'/api/events?municipio=Itapevi')).json();
+ assert.deepEqual(options.emission_options.musico.map(e=>[e.id,e.emission_locked]),[[domain.eventId(first),false],[domain.eventId(second),false],[domain.eventId(event),true]]);
+ auditFails=false;const allowed=await submit(second);assert.equal(allowed.status,201);
+ reserved=null;
+ for(const blocked of [event,fourth]){const denied=await submit(blocked);assert.equal(denied.status,409);assert.match((await denied.json()).error,/não está mais disponível/);}
+ assert.equal(reserved,null);
 });

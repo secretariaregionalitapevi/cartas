@@ -22,7 +22,7 @@ Administração → exame futuro → comum e identificação → ministério →
 
 São quatro administrações: Cotia / Caucaia / VGP; Itapevi; Jandira; Santana / Pirapora. Fazendinha pertence à administração Santana / Pirapora, conforme o cadastro existente.
 
-A agenda oficial é carregada primeiro pela fonte CSV ao vivo usada pelo sistema regional; o endpoint JSON é apenas reserva. A agenda é filtrada por administração e data, e músicos/organistas são filtrados sem distinguir avaliação de pré-avaliação para escolher o modelo. O evento é revalidado na emissão. Sem fonte disponível, a emissão é bloqueada.
+A agenda oficial é carregada primeiro pela fonte CSV ao vivo usada pelo sistema regional; o endpoint JSON é apenas reserva. A agenda é filtrada por administração e data, e músicos/organistas são filtrados sem distinguir avaliação de pré-avaliação para escolher o modelo. Para cada tipo de carta, os dois primeiros exames estão disponíveis, o terceiro aparece bloqueado e os demais ficam ocultos; as opções avançam automaticamente quando os exames anteriores deixam de estar disponíveis. O evento e esse limite são revalidados na emissão. Sem fonte disponível, a emissão é bloqueada.
 
 Comuns: visitas_comuns. Ministério espiritual: ministerio_regional. Encarregados: musica_acompanhamento_aluno. Cooperadores de jovens não substituem cooperadores de ofício ministerial. Todos os responsáveis do item 3 devem constar na relação de assinaturas antes de emitir. Sem cooperador informado, usar o texto autorizado “Sem Cooperador do Ofício”.
 

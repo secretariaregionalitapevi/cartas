@@ -3,6 +3,11 @@ const test=require('node:test'),assert=require('node:assert/strict'),fs=require(
 const root=path.join(__dirname,'..');
 const worker=fs.readFileSync(path.join(root,'public','sw.js'),'utf8');
 
+test('página principal apresenta o botão de instalação como Instalar',()=>{
+ const html=fs.readFileSync(path.join(root,'public','index.html'),'utf8');
+ assert.match(html,/<button class="install-app" type="button" hidden>[\s\S]*?<\/i>\s*Instalar<\/button>/);
+});
+
 function serviceWorker(fetch,caches){
  const listeners={};
  const self={location:{origin:'https://cartas.test'},addEventListener:(name,fn)=>{listeners[name]=fn;}};

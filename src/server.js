@@ -2,7 +2,7 @@
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto');
 const root=path.resolve(__dirname,'..');for(const name of ['.env.local','.env']){const file=path.join(root,name);if(fs.existsSync(file))process.loadEnvFile(file);}
 const {Store,headers}=require('./store'),{getAgenda}=require('./agenda');
-const {administrations,administration,modalities,examEvents,eligibleEvent,validate,duplicateKey,norm,commonMatches,findCommonInAdministration}=require('./domain');
+const {administrations,administration,modalities,examEvents,emissionEvents,validate,duplicateKey,norm,commonMatches,findCommonInAdministration}=require('./domain');
 const {makePdf,availableModalities,letterFilename}=require('./pdf');
 const store=new Store();
 const adminHandler=require('./admin-router').createAdminHandler(store);
@@ -37,7 +37,7 @@ async function handler(req,res){
       const authenticated=token?await store.user(token):null;
       const user=authenticated||{id:visitorSession(req,res,store.key),email:'Solicitante da carta',guest:true};
       if(route==='/api/bootstrap'&&req.method==='GET'){const commons=await store.commons();return json(res,200,{administrations,modalities,available:availableModalities,commons:commons.map(c=>({...c,administracao:administration(c.municipio)})),user:user.email});}
-      if(route==='/api/events'&&req.method==='GET'){const agenda=await getAgenda();return json(res,200,{events:examEvents(agenda.events,url.searchParams.get('municipio')),source:agenda.source});}
+      if(route==='/api/events'&&req.method==='GET'){const agenda=await getAgenda(),events=examEvents(agenda.events,url.searchParams.get('municipio'));return json(res,200,{events,emission_options:{musico:emissionEvents(events,'musico'),organista:emissionEvents(events,'organista')},source:agenda.source});}
       if(route==='/api/people'&&req.method==='GET'){const query=(url.searchParams.get('q')||'').trim().slice(0,120);if(query.length<2)return json(res,200,{people:[]});return json(res,200,{people:await store.people(url.searchParams.get('comum'),url.searchParams.get('tipo'),query)});}
       if(route==='/api/program-assessment'&&req.method==='GET'){
         const type=url.searchParams.get('tipo'),target=url.searchParams.get('modalidade');
@@ -77,8 +77,8 @@ async function handler(req,res){
         p.pessoa_id=person.id;p.nome=person.nome;p.instrumento=person.instrumento||p.instrumento;p.tonalidade=person.tonalidade||p.tonalidade;
 
         if(p.tipo==='organista'&&!commons.some(c=>commonMatches(c.comum,p.comum_instrutora)))throw Object.assign(Error('Selecione a comum da instrutora no cadastro.'),{status:400});
-        const agenda=await getAgenda(),event=examEvents(agenda.events,p.municipio).find(e=>e.id===p.evento_id);
-        if(!event||!eligibleEvent(event,p.tipo,p.modalidade))throw Object.assign(Error('O exame mudou ou não está mais disponível. Selecione novamente.'),{status:409});
+        const agenda=await getAgenda(),officialEvents=examEvents(agenda.events,p.municipio),event=officialEvents.find(e=>e.id===p.evento_id);
+        if(!event||!emissionEvents(officialEvents,p.tipo).some(e=>e.id===p.evento_id&&!e.emission_locked))throw Object.assign(Error('O exame mudou ou não está mais disponível. Selecione novamente.'),{status:409});
         const ministry=await store.ministry(p.comum,p.municipio);
         const chosen={};for(const role of ['anciao','cooperador','encarregado','regional']){
           const match=ministry.find(m=>m.id===raw[role]);

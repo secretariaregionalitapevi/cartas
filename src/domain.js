@@ -30,6 +30,7 @@ function examEvents(events,city,today=new Date().toLocaleDateString('en-CA',{tim
   return events.filter(e=>isExam(e)&&/^\d{4}-\d{2}-\d{2}$/.test(e.data)&&e.data>=today&&eventAdministrations(e).includes(admin)).map(e=>({...e,id:eventId(e)})).sort((a,b)=>(a.data+a.hora).localeCompare(b.data+b.hora));
 }
 function eligibleEvent(e,type,mode){const title=norm(e.evento);if(type==='musico'&&title.includes('ORGANISTA'))return false;if(type==='organista'&&/\bMUSICOS?\b/.test(title))return false;return true;}
+function emissionEvents(events,type){return events.filter(e=>eligibleEvent(e,type)).slice(0,3).map((event,index)=>({...event,emission_locked:index===2}));}
 function validate(body){
   const text=(key,max=160)=>typeof body[key]==='string'?body[key].trim().slice(0,max):'';
   const p={tipo:text('tipo'),modalidade:text('modalidade'),municipio:text('municipio'),comum:text('comum'),nome:text('nome'),instrumento:text('instrumento'),tonalidade:text('tonalidade',50),evento_id:text('evento_id'),whatsapp:text('whatsapp',25),instrutora:text('instrutora'),comum_instrutora:text('comum_instrutora'),metodos:text('metodos',1500),novo_instrumento:text('novo_instrumento'),nova_tonalidade:text('nova_tonalidade',50),motivo:text('motivo',1000),data_oficializacao:text('data_oficializacao',10)};
@@ -45,4 +46,4 @@ function validate(body){
   return p;
 }
 function duplicateKey(p,event){return createHash('sha256').update([norm(p.nome),commonCode(p.comum),p.tipo,p.modalidade,event.id].join('|')).digest('hex');}
-module.exports={norm,cities,administrations,administration,modalities,commonCode,commonMatches,findCommonInAdministration,eventId,eventAdministrations,isExam,examEvents,eligibleEvent,validate,duplicateKey};
+module.exports={norm,cities,administrations,administration,modalities,commonCode,commonMatches,findCommonInAdministration,eventId,eventAdministrations,isExam,examEvents,eligibleEvent,emissionEvents,validate,duplicateKey};

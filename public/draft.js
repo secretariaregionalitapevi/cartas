@@ -16,7 +16,7 @@
     document.getElementById('entry').hidden=false;
   }
   reset();
-  window.CartasDraft={save:discard,restore:async()=>{reset();events=[];entryEvents=[];pending=null;existingId=null;window.CartasPeople?.clear();updateSummary();}};
+  window.CartasDraft={save:discard,restore:async()=>{reset();events=[];eventOptions={};entryEvents=[];entryEventOptions={};pending=null;existingId=null;window.CartasPeople?.clear();updateSummary();}};
   window.addEventListener('pagehide',discard);
   window.addEventListener('pageshow',event=>{if(event.persisted){discard();location.reload();}});
 })();

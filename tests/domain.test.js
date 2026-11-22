@@ -11,5 +11,15 @@ test('agenda indisponível bloqueia emissão e usa apenas fallback configurado',
 test('agenda oficial usa o CSV padrão quando nenhum endereço é configurado',async()=>{const result=await getAgenda({},async url=>{assert.equal(url,OFFICIAL_CSV);return {ok:true,text:async()=> 'DATA,HORA,EVENTO\n01/12/2026,09:00,Exame (Itapevi)'};});assert.equal(result.source,'agenda oficial');assert.equal(result.events[0].evento,'Exame (Itapevi)');});
 test('CSV oficial continua sendo tentado quando o endereço configurado está inválido',async()=>{const calls=[];const result=await getAgenda({AGENDA_CSV_URL:'https://example.test/missing'},async url=>{calls.push(url);return url===OFFICIAL_CSV?{ok:true,text:async()=> 'DATA,HORA,EVENTO\n01/12/2026,09:00,Exame (Jandira)'}:{ok:false,status:404};});assert.deepEqual(calls,['https://example.test/missing',OFFICIAL_CSV]);assert.equal(result.events[0].evento,'Exame (Jandira)');});
 test('validação rejeita campos incompletos',()=>{assert.throws(()=>validate({tipo:'organista',nome:'Maria Silva'}));});
+test('emissão libera dois exames por tipo e exibe somente o terceiro bloqueado',()=>{
+ const {emissionEvents}=require('../src/domain');
+ const source=[1,2,3,4].map(n=>({data:`2099-01-0${n}`,hora:'14:00',evento:'Exame de Músicos (Itapevi)'}));
+ source.push({data:'2099-01-01',hora:'15:00',evento:'Exame de Organistas (Itapevi)'});
+ const options=today=>emissionEvents(examEvents(source,'Itapevi',today),'musico');
+ assert.deepEqual(options('2099-01-01').map(e=>[e.data,e.emission_locked]),[['2099-01-01',false],['2099-01-02',false],['2099-01-03',true]]);
+ assert.deepEqual(options('2099-01-02').map(e=>[e.data,e.emission_locked]),[['2099-01-02',false],['2099-01-03',false],['2099-01-04',true]]);
+ assert.equal(emissionEvents(examEvents(source,'Itapevi','2099-01-01'),'organista').length,1);
+ assert.deepEqual(options('2099-01-05'),[]);
+});
 
 test('pré-avaliações usam as modalidades e cartas normais do mesmo tipo',()=>{const {eligibleEvent,modalities}=require('../src/domain');for(const title of ['Pré-Avaliação Músicos - (Itapevi)','Avaliação Músicos - (Itapevi)']){assert.equal(eligibleEvent({evento:title},'musico','oficializacao'),true);assert.equal(eligibleEvent({evento:title},'musico','culto'),true);assert.equal(eligibleEvent({evento:title},'organista','oficializacao'),false);}assert.equal(eligibleEvent({evento:'Pré-Teste de Organistas (Itapevi)'},'organista','rjm'),true);assert.equal(Object.keys(modalities.organista).some(k=>k.startsWith('pre_')),false);});

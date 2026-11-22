@@ -18,7 +18,8 @@ function allowedProfile(profile,grants){
  if(!music)throw fail('Seu cadastro não tem autorização para a pasta Música.',403);
  const city=cities.find(city=>norm(city)===norm(profile.municipio||profile.cidade));
  if(!city)throw fail('Seu município precisa ser confirmado pelo administrador na trilha de auditoria.',403);
- return {municipio:city,name:String(profile.full_name||profile.username||'Secretário da música')};
+ const cargo=[profile.cargo,profile.cargo_ministerio,profile.ministerio].find(value=>typeof value==='string'&&value.trim());
+ return {municipio:city,name:String(profile.full_name||profile.username||'Secretário da música'),cargo:cargo?cargo.trim():null};
 }
 class AdminAuth{
  constructor(store,env=process.env){this.store=store;this.env=env;this.secret=env.ADMIN_SESSION_SECRET||store.key;this.attempts=new Map();}
