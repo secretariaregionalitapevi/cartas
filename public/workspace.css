@@ -557,6 +557,37 @@ body{background:var(--bg);font-family:'Segoe UI',system-ui,sans-serif}.top-nav{b
 #entry .sac-search-item small{display:block;margin-top:4px;color:#64748b;font-size:11px;font-weight:400}
 #entry .sac-search-item:hover,#entry .sac-search-item:focus-visible{background:#eaf2fa;outline:2px solid #1a4d7c;outline-offset:-2px;font-weight:400}
 
+#entry{width:min(548px,100%)}
+#entry .sac-card{width:100%;border:1px solid #e1e9f1;border-radius:25px;box-shadow:0 12px 38px rgba(32,57,82,.08)}
+#entry .sac-header{padding:30px 24px 27px;border-radius:24px 24px 0 0}
+#entry .sac-title{line-height:1.2;letter-spacing:-.5px}
+#entry .sac-body{padding:25px 27px 23px;border-radius:0 0 24px 24px;text-align:left}
+.entry-intro h2{margin:0 0 5px;color:#28435b;font-size:17px;line-height:1.4;letter-spacing:-.25px}
+.entry-intro p{margin:0;color:#62788e;font-size:12px;line-height:1.6}
+#entry .entry-label{display:block;margin:19px 0 8px;color:#40576f;font-size:12px;font-weight:600;letter-spacing:0;text-transform:none}
+.entry-label span{color:#dc6b7c}
+#entry .sac-form .form-group{height:54px;margin:0;border-color:#dfe7f0;border-radius:12px}
+#entry .sac-form .form-group:focus-within{border-color:#338dce;box-shadow:0 0 0 3px #2987c917}
+#entry .sac-form .input-icon-box{width:48px;color:#287ec0;font-size:16px;border-color:#e4ebf3;border-radius:11px 0 0 11px}
+#entry .sac-form .input-icon-box.entry-location{color:#ec4d72}
+#entry .sac-form select,#entry .sac-form input{height:52px;min-width:0;color:#324c65;font-size:15px}
+#entry .sac-form select{padding-right:36px!important}
+#entry .sac-form select:disabled,#entry .sac-form input:disabled{color:#788a9c;opacity:1}
+#entry .sac-form input::placeholder{color:#788a9c;opacity:1}
+.entry-help{margin:8px 0 0;color:#62788e;font-size:11px;line-height:1.5}
+.entry-submit{margin-top:24px}
+#entry .sac-btn{height:auto;min-height:52px;margin:0;padding:12px 16px;border-radius:12px;font-size:14px;font-weight:700;letter-spacing:0;text-transform:none}
+#entry .sac-btn:hover{transform:none}
+.entry-administration{margin-top:22px;padding-top:18px;border-top:1px solid #e9eff5;text-align:center}
+.entry-administration p{margin:0 0 10px;color:#62788e;font-size:12px}
+.entry-admin,.install-app{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:42px;padding:9px 14px;border:1px solid #d5e2ee;border-radius:10px;background:#f7fafc;color:#1e4b7a;font:600 13px 'Segoe UI',system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.entry-admin{width:100%;min-height:48px}
+.entry-admin i,.install-app i{color:#287ec0}
+.entry-admin:hover,.install-app:hover{background:#eaf2fa;text-decoration:none}
+.entry-admin:focus-visible,.install-app:focus-visible,#entry .sac-btn:focus-visible{outline:3px solid #78add8;outline-offset:3px}
+.install-app[hidden]{display:none}
+@media(max-width:480px){#entry .sac-card{border-radius:22px}#entry .sac-header{padding:25px 19px 23px;border-radius:21px 21px 0 0}#entry .sac-body{padding:22px 20px;border-radius:0 0 21px 21px}#entry .sac-form .input-icon-box{width:44px!important}#entry .sac-form select,#entry .sac-form input{font-size:16px}.top-nav .install-app{font-size:12px;padding:8px 10px}.top-nav>div:first-child{gap:8px!important}.top-nav>div:first-child span{font-size:13px}.top-nav img{height:34px!important}}
+
 /* Candidate names follow the institutional blue. */
 #workspace .person-option strong{color:#1a4d7c}
 

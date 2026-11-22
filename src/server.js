@@ -10,6 +10,7 @@ const {consultation}=require('./program');
 const {studentActivity,activityReview}=require('./student-activity');
 const {visitorSession}=require('./session');
 const {legacyPayload}=require('./legacy-payload');
+const {audit}=require('./audit');
 function json(res,status,data){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(data));}
 async function body(req){let text='';for await(const chunk of req){text+=chunk;if(Buffer.byteLength(text)>20000)throw Object.assign(Error('Dados excedem o tamanho permitido.'),{status:413});}try{return JSON.parse(text||'{}');}catch{throw Object.assign(Error('Dados inválidos.'),{status:400});}}
 async function handler(req,res){
@@ -23,6 +24,9 @@ async function handler(req,res){
       const p=await body(req);if(!store.url)return json(res,503,{error:'Configure o Supabase no servidor.'});
       const r=await fetch(store.url+'/auth/v1/token?grant_type=password',{method:'POST',headers:{...headers(process.env.SUPABASE_PUBLISHABLE_KEY||process.env.SUPABASE_ANON_KEY||''),'Content-Type':'application/json'},body:JSON.stringify({email:p.email,password:p.password}),signal:AbortSignal.timeout(12000)});
       const data=await r.json();if(!r.ok)return json(res,401,{error:'Não foi possível entrar. Confira e-mail e senha.'});
+      const authenticated=await store.user(data.access_token);if(!authenticated?.id)return json(res,401,{error:'Não foi possível validar a sessão.'});
+      try{await audit(store,req,{id:authenticated.id,name:authenticated.user_metadata?.full_name||authenticated.email},'LOGIN',{description:'Login no aplicativo Cartas.'});}
+      catch(error){console.error('cartas_audit_login_error',error.message);return json(res,503,{error:'Não foi possível registrar o acesso. Tente novamente.'});}
       res.setHeader('Set-Cookie',`cartas_session=${data.access_token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=${data.expires_in}${process.env.NODE_ENV==='production'?'; Secure':''}`);
       return json(res,200,{ok:true});
     }
@@ -86,8 +90,11 @@ async function handler(req,res){
         const [program_assessment,student_activity]=await Promise.all([consultation(store,person,p.tipo,p.modalidade),studentActivity(store,person,p.tipo)]);
         const activity_review=activityReview(student_activity,p,event,chosen);
         const record=await store.reserve({duplicate_key:duplicateKey(p,event),nome:p.nome,comum:p.comum,municipio:p.municipio,tipo:p.tipo,modalidade:p.modalidade,event_id:event.id,event_snapshot:event,ministry_snapshot:chosen,payload:{...p,program_assessment,student_activity,activity_review,consentimento:true,n8n:legacyPayload(p,event,chosen)},created_by:user.guest?null:user.id,owner_session:user.id,status:'processing'});
-        try{const pdf=await makePdf(record,user.email);const pdfPath=`${user.id}/${record.id}.pdf`;await store.upload(pdfPath,pdf);await store.update(record.id,{status:'ready',pdf_path:pdfPath,pdf_sha256:crypto.createHash('sha256').update(pdf).digest('hex')});return json(res,201,{id:record.id,status:'ready',activity_pending:student_activity?.pending===true});}
+        try{const pdf=await makePdf(record,user.email);const pdfPath=`${user.id}/${record.id}.pdf`;await store.upload(pdfPath,pdf);await store.update(record.id,{status:'ready',pdf_path:pdfPath,pdf_sha256:crypto.createHash('sha256').update(pdf).digest('hex')});}
         catch(e){await store.update(record.id,{status:'failed'}).catch(()=>{});throw e;}
+        try{await audit(store,req,user.guest?null:{id:user.id,name:user.user_metadata?.full_name||user.email},'CREATE',{entity:'cartas_emissoes',entity_id:record.id,municipio:p.municipio,access:user.guest?'publico':'autenticado'});}
+        catch(error){console.error('cartas_audit_emission_error',error.message);return json(res,503,{error:'A carta foi emitida, mas a auditoria falhou. Confira suas cartas e informe a administração antes de repetir.'});}
+        return json(res,201,{id:record.id,status:'ready',activity_pending:student_activity?.pending===true});
       }
       return json(res,404,{error:'Recurso não encontrado.'});
     }
@@ -95,7 +102,7 @@ async function handler(req,res){
     const file=path.join(root,'public',route==='/'?'index.html':(route==='/admin'||route==='/admin/')?'admin.html':route);
     if(!file.startsWith(path.join(root,'public')+path.sep))return json(res,404,{error:'Não encontrado.'});
     if(!fs.existsSync(file)||!fs.statSync(file).isFile())return json(res,404,{error:'Não encontrado.'});
-    const mime={'.html':'text/html; charset=utf-8','.js':'application/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.svg':'image/svg+xml'};
+    const mime={'.html':'text/html; charset=utf-8','.js':'application/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.webmanifest':'application/manifest+json; charset=utf-8','.png':'image/png','.svg':'image/svg+xml','.woff2':'font/woff2','.ttf':'font/ttf'};
     res.writeHead(200,{'Content-Type':mime[path.extname(file)]||'application/octet-stream','Cache-Control':'no-cache'});if(req.method==='HEAD')res.end();else fs.createReadStream(file).pipe(res);
   }catch(e){json(res,e.status||500,{error:e.status?e.message:'Não foi possível concluir. Tente novamente.',...(e.duplicate?{duplicate:e.duplicate}:{})});}
 }

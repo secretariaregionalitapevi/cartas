@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "initialization": "module",
+  "canvases": [
+    {
+      "id": "app-cartas-regional-dashboard",
+      "displayName": "Painel APP_CARTAS",
+      "description": "Acompanha entregas, candidatos e exporta o acompanhamento de cartas.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "actions": [
+        {
+          "name": "save_record",
+          "description": "Cria ou atualiza um registro de acompanhamento.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string", "minLength": 1, "maxLength": 160 },
+              "common": { "type": "string", "maxLength": 160 },
+              "status": { "type": "string", "enum": ["pending", "received", "late"] },
+              "note": { "type": "string", "maxLength": 500 }
+            },
+            "required": ["name", "status"],
+            "additionalProperties": false
+          }
+        },
+        {
+          "name": "export_csv",
+          "description": "Exporta os registros do painel em CSV."
+        }
+      ]
+    }
+  ]
+}

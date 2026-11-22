@@ -9,7 +9,7 @@
     document.getElementById('entry-common-search').disabled=true;
     document.getElementById('entry-common-results').classList.remove('active');
     document.getElementById('entry-common-results').replaceChildren();
-    document.getElementById('entry-event').innerHTML='<option value="">Selecione o tipo de carta primeiro</option>';
+    document.getElementById('entry-event').innerHTML='<option value="">Escolha o tipo de carta</option>';
     document.getElementById('entry-event').disabled=true;
     document.getElementById('entry-hint').textContent='';
     document.getElementById('workspace').hidden=true;

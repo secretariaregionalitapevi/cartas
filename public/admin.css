@@ -93,3 +93,139 @@
 .export-actions .project-export:hover{background:#f3f6f9;border-color:#9aaec1}
 .export-actions .project-icon{font-family:RegionalProjectIcons;font-style:normal;font-weight:900;font-size:11px;line-height:1;display:inline-block;-webkit-font-smoothing:antialiased}
 .export-actions .icon-excel{color:#00acac}.icon-excel:before{content:'\f1c3'}.export-actions .icon-pdf{color:#ff5b57}.icon-pdf:before{content:'\f1c1'}.export-actions .icon-clear{color:#102a43}.icon-clear:before{content:'\f12d'}
+
+.workspace-heading{align-items:center;gap:24px;padding:20px 22px;margin-bottom:18px;background:#fff;border:1px solid var(--line);border-radius:14px}
+.workspace-intro{display:flex;align-items:center;gap:15px;min-width:0}
+.workspace-icon{display:grid;place-items:center;flex:0 0 46px;width:46px;height:46px;border-radius:12px;background:#e8f2fa;color:var(--blue)}
+.workspace-icon svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.workspace-heading h1{font-size:24px;margin:0 0 5px}
+.workspace-heading p{line-height:1.5}
+.identity{overflow-wrap:anywhere}
+.admin-top .install-app[hidden]{display:none}
+@media(max-width:560px){
+  .admin-top{flex-wrap:wrap}
+  .admin-top nav{margin-left:auto;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .admin-top nav .btn{min-height:40px}
+  .workspace-heading{padding:18px;gap:16px}
+  .workspace-intro{align-items:flex-start}
+  .workspace-heading h1{font-size:21px}
+  .identity{width:100%;padding-top:12px;border-top:1px solid var(--line)}
+  .identity strong{display:inline;margin-left:8px}
+  .identity small{display:block;margin:2px 0 0}
+  .filters>.btn{flex:1}
+  .sac-page-footer{padding-bottom:max(30px,env(safe-area-inset-bottom))}
+}
+
+/* Campos e navegação no padrão das telas públicas da regional. */
+#admin-login.login-card{max-width:548px;border-color:#e1e9f1;border-radius:25px;box-shadow:0 12px 38px rgba(32,57,82,.08)}
+#admin-login .login-heading{padding:30px 24px 27px}
+#admin-login .login-body{padding:25px 27px 23px}
+#admin-login .login-field{height:54px;margin-bottom:15px;border-color:#dfe7f0;border-radius:12px}
+#admin-login .login-field:focus-within{outline:0;border-color:#338dce;box-shadow:0 0 0 3px #2987c917}
+#admin-login .login-icon{flex-basis:48px;color:#287ec0;font-size:16px;border-color:#e4ebf3}
+#admin-login .login-field input{padding:0 13px;color:#324c65}
+#admin-login input::placeholder{color:#788a9c}
+#admin-login #admin-signin{height:52px;min-height:52px;margin:24px 0 0;letter-spacing:.8px}
+#admin-login .registration-note{margin-top:10px;padding-top:18px}
+#admin-login #admin-register{min-height:48px;display:flex;align-items:center;justify-content:center;border-color:#d5e2ee;border-radius:10px;background:#f7fafc;color:#1e4b7a}
+.admin-top .btn{min-height:42px;border-radius:10px}
+.admin-top .btn i{color:#287ec0}
+.workspace-icon{color:#287ec0;font-size:21px}
+.panel{border-color:#e1e9f1;border-radius:16px}
+.filters{padding:22px;gap:18px}
+.field label,.kind-choice legend{color:#40576f}
+.admin-input{display:flex;align-items:stretch;height:50px;border:1px solid #dfe7f0;border-radius:12px;background:#fff;min-width:0}
+.admin-input:focus-within{border-color:#338dce;box-shadow:0 0 0 3px #2987c917}
+.admin-input>span{display:grid;place-items:center;flex:0 0 46px;background:#f8fafc;border-right:1px solid #e4ebf3;border-radius:11px 0 0 11px;color:#287ec0}
+.admin-input input:not([type=radio]):not([type=checkbox]),.admin-input select{height:auto;min-width:0;border:0;border-radius:0 11px 11px 0;outline:0;padding:0 13px;background:transparent;color:#324c65}
+.admin-input input::placeholder{color:#788a9c}
+.kind-choice span{min-height:50px;padding:14px 16px}
+.summary article{border-radius:12px}
+.empty-state::before{content:'\f15c';display:grid;place-items:center;width:48px;height:48px;margin:0 auto 15px;border-radius:14px;background:#e8f3fc;color:#287ec0;font:900 20px "Font Awesome 6 Free"}
+#admin-workspace{padding-bottom:90px}
+.admin-bottom{position:fixed;z-index:20;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:clamp(8px,4vw,36px);padding:8px 12px max(8px,env(safe-area-inset-bottom));border-top:1px solid #dce5ee;background:#f7fafc}
+.admin-bottom a,.admin-bottom button{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:72px;min-height:54px;padding:0 5px;border:0;background:transparent;color:#40576f;font:600 11px 'Segoe UI',Tahoma,Arial,sans-serif;cursor:pointer;text-decoration:none}
+.admin-nav-icon{display:grid;place-items:center;width:52px;height:30px;border-radius:18px;font-size:16px}
+.nav-home,.nav-export,.nav-install{background:#e8f3fc;color:#187abe}
+.nav-refresh{background:#e3f6f3;color:#079b91}
+.nav-exit{background:#fff0f3;color:#d6445d}
+.admin-bottom a:hover .admin-nav-icon,.admin-bottom button:hover .admin-nav-icon{filter:brightness(.94)}
+.admin-bottom a:focus-visible,.admin-bottom button:focus-visible{outline:3px solid #78add8;outline-offset:3px;border-radius:8px}
+@media(max-width:560px){
+  #admin-login.login-card{border-radius:22px}
+  #admin-login .login-heading{padding:25px 19px 23px}
+  #admin-login .login-body{padding:22px 20px}
+  #admin-login .login-icon{flex-basis:44px}
+  #admin-login .login-field input{font-size:16px}
+  .filters{padding:16px}
+  .kind-choice span{padding:14px 13px}
+  .admin-input input:not([type=radio]):not([type=checkbox]),.admin-input select{font-size:16px}
+  .admin-bottom{gap:0;justify-content:space-around}
+  .admin-bottom a,.admin-bottom button{flex:1;min-width:0}
+}
+
+/* Gestão municipal: hierarquia e indicadores do painel regional. */
+#admin-workspace .workspace-heading{background:linear-gradient(120deg,#153b60,#1e5c7d 60%,#167f83);border:0;box-shadow:0 12px 30px #173b5520;color:#fff;padding:22px 24px}
+#admin-workspace .workspace-heading h1{color:#fff}
+#admin-workspace .workspace-heading p{color:#e0edf3}
+#admin-workspace .workspace-icon{background:#ffffff24;color:#fff}
+#admin-workspace .identity{padding:10px 14px;border:1px solid #ffffff3d;border-radius:12px;background:#ffffff14}
+#admin-workspace .identity-city{display:inline-flex;align-items:center;gap:7px;margin:0 0 5px;padding:4px 9px;border-radius:20px;background:#fff;color:#1e5875;font-size:11px;font-weight:700;line-height:1.4}
+#admin-workspace .identity strong{color:#fff;font-size:12px}
+#admin-workspace .identity small{color:#d7eaf0}
+#admin-workspace .filters,#admin-workspace .candidates{box-shadow:0 8px 25px #17384d0d}
+#admin-workspace .admin-input{display:flex;align-items:stretch;overflow:hidden}
+#admin-workspace .admin-input>span{display:flex;align-items:center;justify-content:center;flex:0 0 46px;line-height:1}
+#admin-workspace .admin-input>span i{display:block;line-height:1}
+#admin-workspace .admin-input>input,#admin-workspace .admin-input>select{display:block;flex:1 1 0;width:0;min-width:0;height:100%;margin:0}
+#admin-workspace .deadline-strip{padding:15px 18px;border-radius:13px}
+#admin-workspace .deadline-icon{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border-radius:11px;background:#fff;color:#267db3;font-size:16px}
+#admin-workspace .deadline-strip>div{min-width:0}
+#admin-workspace .deadline-strip .pill{white-space:normal;text-align:center}
+#admin-workspace .summary{gap:12px}
+#admin-workspace .summary article{--metric:#287bc0;--metric-bg:#eaf4ff;position:relative;min-width:0;padding:16px;border:1px solid #e6ecf1;border-radius:16px;background:linear-gradient(145deg,#fff,#fbfcff);box-shadow:0 8px 24px #28374a0d}
+#admin-workspace .summary article.received{--metric:#078a77;--metric-bg:#e6f8f3}
+#admin-workspace .summary article.missing{--metric:#b77815;--metric-bg:#fff5e3}
+#admin-workspace .summary article.on-time{--metric:#1679a8;--metric-bg:#e8f5fb}
+#admin-workspace .summary article.late{--metric:#c64e57;--metric-bg:#fff0f2}
+#admin-workspace .metric-top{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:36px}
+#admin-workspace .metric-top>span:first-child{color:#526779;font-size:12px;font-weight:600;line-height:1.35}
+#admin-workspace .summary .metric-icon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;border-radius:11px;background:var(--metric-bg);color:var(--metric);font-size:15px}
+#admin-workspace .summary strong{margin:12px 0 13px;color:#21374b;font-size:27px;line-height:1}
+#admin-workspace .summary progress{display:block;width:100%;height:6px;border:0;border-radius:8px;overflow:hidden;background:#eaf0f4;color:var(--metric);accent-color:var(--metric)}
+#admin-workspace .summary progress::-webkit-progress-bar{background:#eaf0f4;border-radius:8px}
+#admin-workspace .summary progress::-webkit-progress-value{background:var(--metric);border-radius:8px}
+#admin-workspace .summary progress::-moz-progress-bar{background:var(--metric);border-radius:8px}
+#admin-workspace .panel-heading h2{color:#213c53}
+#admin-workspace #admin-list-count:not(:empty){padding:6px 10px;border-radius:20px;background:#eaf4fb;color:#235e85;font-weight:600}
+#admin-workspace .candidate{gap:18px;padding:18px 20px}
+#admin-workspace .candidate-info{min-width:0}
+#admin-workspace .candidate-info strong{display:flex;align-items:center;gap:10px;color:#233f55;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
+#admin-workspace .candidate-name i{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:10px;background:#eaf4fb;color:#287ec0;font-size:14px}
+#admin-workspace .candidate-name span{min-width:0}
+#admin-workspace .candidate-details{padding-left:44px}
+#admin-workspace .candidate-info small{display:flex;align-items:baseline;gap:8px;line-height:1.5;overflow-wrap:anywhere}
+#admin-workspace .candidate-info small span{min-width:0}
+#admin-workspace .candidate-info small i{width:13px;flex:0 0 13px;color:#4589b4;text-align:center}
+#admin-workspace .candidate-info small:first-of-type i{color:#d95c77}
+#admin-workspace .candidate-status .pill{display:inline-flex;align-items:center;gap:7px;max-width:100%;padding:7px 10px;border:1px solid #dfe7ef;border-radius:20px;background:#f1f5f8;color:#526b81;font-size:11px;font-weight:700;line-height:1.35}
+#admin-workspace .candidate-status .pill.on_time{border-color:#bee9db;background:#e9f8f1;color:#147257}
+#admin-workspace .candidate-status .pill.late,#admin-workspace .candidate-status .pill.overdue{border-color:#f1cbd0;background:#fff0f2;color:#ad3548}
+#admin-workspace .candidate-status .pill.pending,#admin-workspace .candidate-status .pill.no_deadline{border-color:#f2dfb6;background:#fff7e7;color:#855b12}
+#admin-workspace .candidate-status .pill.received{border-color:#c5e1f1;background:#eaf5fb;color:#226789}
+#admin-workspace .candidate-status .pill.unknown_date{border-color:#ded6f0;background:#f4f0fb;color:#6b508f}
+#admin-workspace .candidate-status .pill i{flex:0 0 auto}
+#admin-workspace .candidate-actions .btn{min-height:40px;border-radius:9px}
+#admin-workspace .candidate-actions .btn i{width:14px;text-align:center}
+@media(max-width:900px){#admin-workspace .workspace-heading{align-items:flex-start}}
+@media(max-width:560px){
+  #admin-workspace .workspace-heading{padding:18px}
+  #admin-workspace .identity{width:100%;text-align:left}
+  #admin-workspace .identity strong{display:inline;margin-left:8px}
+  #admin-workspace .identity small{display:block;margin:2px 0 0}
+  #admin-workspace .summary{gap:9px}
+  #admin-workspace .summary article{padding:13px}
+  #admin-workspace .summary strong{font-size:24px}
+  #admin-workspace .candidate{padding:17px}
+  #admin-workspace .candidate-status{display:flex;align-items:center;gap:8px}
+}

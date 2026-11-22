@@ -2,6 +2,7 @@
 const crypto=require('node:crypto');
 const {headers}=require('./store');
 const {norm,cities}=require('./domain');
+const {audit}=require('./audit');
 const COOKIE='cartas_admin_session',TTL=8*60*60;
 const fail=(message,status=401)=>Object.assign(Error(message),{status});
 function key(secret){return crypto.createHash('sha256').update('cartas-admin:v1:'+secret).digest();}
@@ -28,6 +29,8 @@ class AdminAuth{
  async login(req,res,data){sameOrigin(req);const ip=req.socket?.remoteAddress||'unknown',now=Date.now(),entry=this.attempts.get(ip);if(entry&&now-entry.since<600000&&entry.count>=15)throw fail('Muitas tentativas. Aguarde alguns minutos antes de tentar novamente.',429);if(!entry||now-entry.since>=600000)this.attempts.set(ip,{since:now,count:0});this.attempts.get(ip).count++;if(this.attempts.size>2000)for(const [key,e]of this.attempts)if(now-e.since>600000)this.attempts.delete(key);
  const email=String(data.email||'').trim().toLowerCase(),password=data.password;if(!email||email.length>254||typeof password!=='string'||!password||password.length>1024)throw fail('Informe e-mail e senha.',400);
  const tokens=await this.token({grant_type:'password',email,password});const identity=await this.identity(tokens.access_token);
+ try{await audit(this.store,req,identity,'LOGIN',{description:'Login na administração municipal do aplicativo Cartas.'});}
+ catch(error){console.error('cartas_audit_login_error',error.message);throw fail('Não foi possível registrar o acesso. Tente novamente.',503);}
  const session={access_token:tokens.access_token,refresh_token:tokens.refresh_token,expires_at:tokens.expires_at||Math.floor(now/1000)+(tokens.expires_in||3600),started:now,csrf:crypto.randomBytes(24).toString('hex')};this.setCookie(res,session);this.attempts.delete(ip);return {identity,session};}
  async require(req,res){const session=this.cookie(req);if(!session)throw fail('Entre para acessar a administração das cartas.');if(session.expires_at*1000<Date.now()+30000){let tokens;try{tokens=await this.token({grant_type:'refresh_token',refresh_token:session.refresh_token});}catch{this.setCookie(res,null);throw fail('Sessão expirada. Entre novamente.');}Object.assign(session,{access_token:tokens.access_token,refresh_token:tokens.refresh_token,expires_at:tokens.expires_at||Math.floor(Date.now()/1000)+(tokens.expires_in||3600)});this.setCookie(res,session);}const identity=await this.identity(session.access_token);return {identity,session};}
  async logout(req,res){sameOrigin(req);const session=this.cookie(req);if(session)await this.store.fetch(this.store.url+'/auth/v1/logout',{method:'POST',headers:{...headers(this.env.SUPABASE_PUBLISHABLE_KEY||this.env.SUPABASE_ANON_KEY||''),Authorization:'Bearer '+session.access_token},signal:AbortSignal.timeout(5000)}).catch(()=>{});this.setCookie(res,null);}

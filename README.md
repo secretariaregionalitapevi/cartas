@@ -10,6 +10,12 @@ Aplicativo independente salvo em APP_CARTAS. Node.js 22, sessão assinada no ser
 
 A conexão local já está configurada no .env. Nunca publicar ou compartilhar esse arquivo. Em produção, cadastrar as variáveis no provedor e definir NODE_ENV=production. Configuração Vercel incluída.
 
+## Instalação como aplicativo
+
+Em uma conexão HTTPS, use **Instalar aplicativo** quando o navegador oferecer a opção, ou use o comando de instalação no menu do navegador. No iPhone/iPad, abra no Safari e escolha **Compartilhar → Adicionar à Tela de Início**. O aplicativo instalado abre em janela própria.
+
+A emissão, a agenda e a administração dependem de internet. Sem conexão, uma página informa como tentar novamente; cartas, sessões e dados administrativos não são armazenados no cache da PWA. Atualizações são instaladas pelo navegador sem recarregar automaticamente formulários em andamento.
+
 ## Funcionamento
 
 Administração → exame futuro → comum e identificação → ministério → revisão → emissão → Minhas cartas.
